@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  app:
+    image: ${PROJECT_NAMESPACE}/${APP_NAME}
+    build:
+      context:    ../
+      dockerfile: ./.docker/services/app/Dockerfile
+      target: production
+    networks:
+      app: ~
+    env_file: ../.env
+    expose:
+      - 80
+    ports:
+      - '${APP_PORT}:80'
+
+networks:
+  app:
+    name: ${PROJECT_NETWORK_NAME}
+    external: true
